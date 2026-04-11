@@ -5,35 +5,37 @@
 <title>Medicine Reminder</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- HERO SECTION -->
 <section class="hero">
-  <h1> Medicine Reminder System</h1>
-  <p>Never miss your medicines again. Get reminders on time and manage your health easily.</p>
+  <h1>💊 Medicine Reminder System</h1>
+  <p>Never miss your medicines again. Get reminders on time easily.</p>
 
   <div class="features">
-    <div class="card"> Timely Alerts</div>
-    <div class="card"> Easy Management</div>
-    <div class="card"> Safe Storage</div>
+    <div class="card">⏰ Timely Alerts</div>
+    <div class="card">📋 Easy Management</div>
+    <div class="card">🔒 Safe Storage</div>
   </div>
 </section>
 
-
+<!-- MAIN APP -->
 <div class="container">
   <h2>Add Medicine</h2>
 
   <form id="form">
     <input type="text" id="name" placeholder="Medicine Name" required>
+    <input type="date" id="date" required>
     <input type="time" id="time" required>
     <input type="text" id="dose" placeholder="Dosage (e.g. 1 tablet)">
-    <button>Add</button>
+    <button type="submit">Add Reminder</button>
   </form>
 
   <ul id="list"></ul>
 </div>
 
-
-
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-container">
 
@@ -64,17 +66,13 @@
 
   </div>
 
-  
-  <p style="text-align:center;
-   margin-top:30px;
-    font-size:12px;
-     opacity:0.5;">
-    Created by Himanshu Soni
+  <p style="text-align:center; margin-top:30px; font-size:12px; opacity:0.5;">
+    Created by Preet Namdev and Nancy Chaubey
   </p>
-
 </footer>
-</body>
-</html>
+
+<!-- JS FILE -->
 <script src="script.js"></script>
+
 </body>
 </html>
