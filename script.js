@@ -39,7 +39,7 @@ function signup() {
   const errEl    = document.getElementById("signup-error");
 
   if (!username || !password) { errEl.textContent = "Please fill in all fields."; return; }
-  if (password.length < 4)    { errEl.textContent = "Password must be at least 4 characters."; return; }
+  if (password.length < 8)    { errEl.textContent = "Password must be at least 8 characters."; return; }
   if (password !== confirm)   { errEl.textContent = "Passwords do not match."; return; }
 
   const users = getUsers();
@@ -170,9 +170,18 @@ function deleteMed(index) {
    ALARM SOUND (Web Audio API)
 ═══════════════════════════════════════════════ */
 
+let audioCtx = null;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return audioCtx;
+}
+
 function playAlarmSound() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = getAudioContext();
 
     function beep(freq, startTime, duration) {
       const osc  = ctx.createOscillator();
@@ -223,7 +232,14 @@ function dismissAlarm() {
 ═══════════════════════════════════════════════ */
 
 let reminderInterval = null;
-let lastResetDate    = new Date().toISOString().split("T")[0];
+
+function getLastResetDate() {
+  return localStorage.getItem("lastResetDate") || new Date().toISOString().split("T")[0];
+}
+
+function setLastResetDate(date) {
+  localStorage.setItem("lastResetDate", date);
+}
 
 function startReminderTimer() {
   if (reminderInterval) clearInterval(reminderInterval);
@@ -234,8 +250,8 @@ function startReminderTimer() {
     const currentTime = now.toTimeString().slice(0, 5);    // HH:MM
 
     // Reset notified flags at midnight each new day
-    if (currentDate !== lastResetDate) {
-      lastResetDate = currentDate;
+    if (currentDate !== getLastResetDate()) {
+      setLastResetDate(currentDate);
       medicines.forEach(med => { med.notified = false; });
       saveMedicines();
     }
