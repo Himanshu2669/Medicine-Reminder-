@@ -2,74 +2,134 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medicine Reminder</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- HERO SECTION -->
-<section class="hero">
-  <h1>💊 Medicine Reminder System</h1>
-  <p>Never miss your medicines again. Get reminders on time easily.</p>
+<!-- ───────── AUTH SECTION ───────── -->
+<div id="auth-section" class="auth-overlay">
 
-  <div class="features">
-    <div class="card">⏰ Timely Alerts</div>
-    <div class="card">📋 Easy Management</div>
-    <div class="card">🔒 Safe Storage</div>
+  <!-- LOGIN FORM -->
+  <div id="login-box" class="auth-box">
+    <div class="auth-logo">💊</div>
+    <h2>Welcome Back</h2>
+    <p class="auth-sub">Log in to manage your reminders</p>
+
+    <input type="text" id="login-username" placeholder="Username" autocomplete="username">
+    <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+    <p id="login-error" class="error-msg"></p>
+    <button onclick="login()">Login</button>
+    <p class="auth-toggle">Don't have an account? <a href="#" onclick="showSignup(event)">Sign Up</a></p>
   </div>
-</section>
 
-<!-- MAIN APP -->
-<div class="container">
-  <h2>Add Medicine</h2>
+  <!-- SIGNUP FORM -->
+  <div id="signup-box" class="auth-box" style="display:none">
+    <div class="auth-logo">💊</div>
+    <h2>Create Account</h2>
+    <p class="auth-sub">Start tracking your medicines today</p>
 
-  <form id="form">
-    <input type="text" id="name" placeholder="Medicine Name" required>
-    <input type="date" id="date" required>
-    <input type="time" id="time" required>
-    <input type="text" id="dose" placeholder="Dosage (e.g. 1 tablet)">
-    <button type="submit">Add Reminder</button>
-  </form>
+    <input type="text" id="signup-username" placeholder="Username" autocomplete="username">
+    <input type="password" id="signup-password" placeholder="Password" autocomplete="new-password">
+    <input type="password" id="signup-confirm" placeholder="Confirm Password" autocomplete="new-password">
+    <p id="signup-error" class="error-msg"></p>
+    <button onclick="signup()">Sign Up</button>
+    <p class="auth-toggle">Already have an account? <a href="#" onclick="showLogin(event)">Login</a></p>
+  </div>
 
-  <ul id="list"></ul>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-container">
+<!-- ───────── MAIN APP (hidden until logged in) ───────── -->
+<div id="main-app" style="display:none">
 
-    <div class="footer-col">
-      <h3>Contact</h3>
-      <p>Email: help@medreminder.com</p>
-      <p>Helpline: 1800-123-456</p>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <span class="navbar-brand">💊 Medicine Reminder</span>
+    <div class="navbar-right">
+      <span class="navbar-user">👤 <span id="nav-username"></span></span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
     </div>
+  </nav>
 
-    <div class="footer-col">
-      <h3>Head Office</h3>
-      <p>Medicine Authority</p>
-      <p>New Delhi</p>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <h1>💊 Medicine Reminder System</h1>
+    <p>Never miss your medicines again. Get reminders on time easily.</p>
+
+    <div class="features">
+      <div class="card">⏰ Timely Alerts</div>
+      <div class="card">📋 Easy Management</div>
+      <div class="card">🔒 Safe Storage</div>
     </div>
+  </section>
 
-    <div class="footer-col">
-      <h3>Policies</h3>
-      <p>Privacy Policy</p>
-      <p>Terms</p>
-      <p>Help</p>
-    </div>
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    <h2>Add Medicine</h2>
 
-    <div class="footer-col">
-      <h3>Links</h3>
-      <p>Health Portal</p>
-      <p>Digital India</p>
-    </div>
+    <form id="form">
+      <input type="text" id="name" placeholder="Medicine Name" required>
+      <input type="date" id="date" required>
+      <input type="time" id="time" required>
+      <input type="text" id="dose" placeholder="Dosage (e.g. 1 tablet)">
+      <button type="submit">Add Reminder</button>
+    </form>
 
+    <ul id="list"></ul>
   </div>
 
-  <p style="text-align:center; margin-top:30px; font-size:12px; opacity:0.5;">
-    Created by Himanshu Soni
-  </p>
-</footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <p>Email: help@medreminder.com</p>
+        <p>Helpline: 1800-123-456</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Head Office</h3>
+        <p>Medicine Authority</p>
+        <p>New Delhi</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Policies</h3>
+        <p>Privacy Policy</p>
+        <p>Terms</p>
+        <p>Help</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Links</h3>
+        <p>Health Portal</p>
+        <p>Digital India</p>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:30px; font-size:12px; opacity:0.5;">
+      Created by Himanshu Soni
+    </p>
+  </footer>
+
+</div>
+
+<!-- ALARM MODAL -->
+<div id="alarm-modal" class="alarm-modal" style="display:none">
+  <div class="alarm-content">
+    <div class="alarm-icon">⏰</div>
+    <h2 id="alarm-title">Medicine Reminder</h2>
+    <p id="alarm-body"></p>
+    <button onclick="dismissAlarm()">✔ Got it!</button>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast" class="toast"></div>
 
 <!-- JS FILE -->
 <script src="script.js"></script>
