@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* Center layout */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Animation */
+.container {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title style */
+.container h2 {
+  text-align: center;
+  color: #22c55e;
+  margin-bottom: 20px;
+}
+
+/* Input focus glow */
+input:focus {
+  box-shadow: 0 0 10px #22c55e;
+}
+
+/* Links */
+a {
+  color: #22c55e;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Welcome Back 👋</h2>
+
+  <input type="email" id="loginEmail" placeholder="Email Address" required><br><br>
+  <input type="password" id="loginPass" placeholder="Password" required><br><br>
+
+  <button onclick="loginUser()">Login</button>
+
+  <p style="text-align:center; margin-top:10px;">
+    Don't have account? <a href="register.html">Register</a>
+  </p>
+</div>
+
+<script src="auth.js"></script>
+
+</body>
+</html>

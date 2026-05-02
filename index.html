@@ -4,9 +4,56 @@
 <meta charset="UTF-8">
 <title>Medicine Reminder</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* Top bar */
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #020617;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Username */
+#usernameDisplay {
+  font-weight: bold;
+  color: #22c55e;
+}
+
+/* Logout button */
+.logout-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}
+
+/* Space adjust (topbar ke niche content aaye) */
+body {
+  padding-top: 60px;
+}
+</style>
+
 </head>
 
 <body>
+
+<!-- 🔐 TOP BAR -->
+<div class="topbar">
+  <div id="usernameDisplay">👤 User</div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
 
 <!-- HERO SECTION -->
 <section class="hero">
@@ -66,12 +113,22 @@
 
   </div>
 
-  <p style="text-align:center; margin-top:30px; font-size:12px; opacity:0.5;">
-    Created by Himanshu Soni
+  <p style="text-align:center;
+   margin-top:30px; 
+   font-size:12px; opacity:0.8;">
+    Created by Preet Namdev and Nancy Chaubey
   </p>
 </footer>
 
-<!-- JS FILE -->
+<!-- 🔐 AUTH SCRIPT -->
+<script src="auth.js"></script>
+
+<script>
+  // 🔒 Check login + show user name
+  checkLogin();
+</script>
+
+<!-- MAIN JS -->
 <script src="script.js"></script>
 
 </body>

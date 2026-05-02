@@ -1,7 +1,15 @@
 let form = document.getElementById("form");
 let list = document.getElementById("list");
 
-let medicines = JSON.parse(localStorage.getItem("medicines")) || [];
+// 🔐 Get Logged-in User
+let user = localStorage.getItem("loggedInUser");
+
+if (!user) {
+  window.location.href = "login.html";
+}
+
+// 👇 User-wise medicines (IMPORTANT CHANGE)
+let medicines = JSON.parse(localStorage.getItem(user + "_medicines")) || [];
 
 // 🔔 Notification Permission
 if (Notification.permission !== "granted") {
@@ -41,7 +49,8 @@ form.addEventListener("submit", (e) => {
     notified: false
   });
 
-  localStorage.setItem("medicines", JSON.stringify(medicines));
+  // 👇 Save user-wise
+  localStorage.setItem(user + "_medicines", JSON.stringify(medicines));
 
   display();
   form.reset();
@@ -50,7 +59,10 @@ form.addEventListener("submit", (e) => {
 // ❌ Delete Medicine
 function deleteMed(index) {
   medicines.splice(index, 1);
-  localStorage.setItem("medicines", JSON.stringify(medicines));
+
+  // 👇 Save user-wise
+  localStorage.setItem(user + "_medicines", JSON.stringify(medicines));
+
   display();
 }
 
@@ -58,8 +70,8 @@ function deleteMed(index) {
 setInterval(() => {
   let now = new Date();
 
-  let currentDate = now.toISOString().split("T")[0]; // YYYY-MM-DD
-  let currentTime = now.toTimeString().slice(0, 5); // HH:MM
+  let currentDate = now.toISOString().split("T")[0];
+  let currentTime = now.toTimeString().slice(0, 5);
 
   medicines.forEach((med) => {
 
@@ -84,15 +96,18 @@ setInterval(() => {
 
   });
 
-  localStorage.setItem("medicines", JSON.stringify(medicines));
+  // 👇 Save user-wise
+  localStorage.setItem(user + "_medicines", JSON.stringify(medicines));
 
-}, 1000); 
+}, 1000);
+
+// 🔄 Reset notifications daily
 setInterval(() => {
   medicines.forEach((med) => {
     med.notified = false;
   });
 
-  localStorage.setItem("medicines", JSON.stringify(medicines));
+  localStorage.setItem(user + "_medicines", JSON.stringify(medicines));
 }, 24 * 60 * 60 * 1000);
 
 // 🚀 Initial Load
